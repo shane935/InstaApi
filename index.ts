@@ -3,8 +3,7 @@ import * as graphqlHTTP from "express-graphql";
 import schema from "./schema";
 import * as mongoose from 'mongoose';
 
-import {TagModel, Tag, TagInput} from "./models/tag";
-
+import {TagModel, CollectionModel, Tag, TagInput, CollectionInput, Collection} from "./models/tag";
 
 
 mongoose.connect('mongodb://localhost/InstaApi');
@@ -18,7 +17,7 @@ app.use('/graphql', graphqlHTTP({
         if(err){
           throw err;
         }
-        return tag
+        return tag;
       })
     },
     async Tags(){
@@ -26,7 +25,15 @@ app.use('/graphql', graphqlHTTP({
         if(err){
           throw err;
         }
-        return tags
+        return tags;
+      });
+    },
+    async Collections(){
+     return await CollectionModel.find({}, (err:Error, collections:Collection[]) => {
+        if(err){
+          throw err;
+        }
+        return collections;
       });
     },
     async CreateTag({input}:{input:TagInput}){
@@ -34,9 +41,16 @@ app.use('/graphql', graphqlHTTP({
         if(err){
           throw err;
         }
-        return tag
+        return tag;
       });
-
+    },
+    async CreateCollection({input}:{input:CollectionInput}) {
+      return await CollectionModel.create(input, (err:Error, collection:CollectionInput) => {
+        if(err){
+          throw err;
+        }
+        return collection;
+      });
     }
   },
   graphiql: true
