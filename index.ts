@@ -7,7 +7,7 @@ import {TagModel, Tag, TagInput} from "./models/tag";
 
 
 
-mongoose.connect('mongodb://localhost/InstaApi');
+mongoose.connect('mongodb://mongo/InstaApi');
 const app = express();
 
 app.use('/graphql', graphqlHTTP({

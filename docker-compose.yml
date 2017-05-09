@@ -1,0 +1,20 @@
+version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - "4000:4000"
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  mongoui:
+    image: kim0/mongoui
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+
+
